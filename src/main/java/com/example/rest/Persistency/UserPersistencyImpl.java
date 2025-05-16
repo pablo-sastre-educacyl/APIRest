@@ -3,20 +3,26 @@ package com.example.rest.Persistency;
 import com.example.rest.Entities.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.FluentQuery;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.function.Function;
 
-public class UserPersistencyImpl  implements  UserPersistency{
+public abstract class UserPersistencyImpl implements  UserPersistency{
 
     final String json_url = "users.json";
     final ObjectMapper mapper = new ObjectMapper();
 
 
-    @Override
+    /*@Override
     public List<User> getAll() {
 
         try{
@@ -27,20 +33,20 @@ public class UserPersistencyImpl  implements  UserPersistency{
         }
     }
     @Override
-    public List<User> getOne(int id) {
+    public User getOne(int id) {
         List<User> users = getAll();
         for(User u: users){
             if(u.getId() == id){
-                return List.of(u);
+                return u;
             }
         }
-        return List.of();
+        return null;
     }
 
     @Override
-    public List<User> setUser(String nombre, int anno) {
+    public List<User> setUser(String nombre, LocalDate fecha) {
         try{
-            User nuevo = new User(primerId(), nombre, anno);
+            User nuevo = new User(primerId(), nombre, fecha);
             List<User> users = getAll();
             users.add(nuevo.getId()-1, nuevo);
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(json_url), users);
@@ -70,7 +76,7 @@ public class UserPersistencyImpl  implements  UserPersistency{
         }
     }
     @Override
-    public List<User> deleteAll(){
+    public List<User> deleteAllM(){
         try {
             List<User> users = getAll();
             File json = new File(json_url);
@@ -85,9 +91,9 @@ public class UserPersistencyImpl  implements  UserPersistency{
     }
 
     @Override
-    public List<User> updateUser(int id, String nombre, int anno) {
+    public List<User> updateUser(int id, String nombre, LocalDate fecha) {
         try{
-            User nuevo = new User(id, nombre, anno);
+            User nuevo = new User(id, nombre, fecha);
             List<User> users = getAll();
             int index = -1;
             for(User user: users){
@@ -127,5 +133,6 @@ public class UserPersistencyImpl  implements  UserPersistency{
             i++;
         }
         return id;
-    }
+        }*/
 }
+
